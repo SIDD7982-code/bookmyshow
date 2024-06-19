@@ -1,0 +1,33 @@
+.movie-details
+{
+    background: rgb(0,0,0);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position:right center;
+}
+
+svg
+{
+    cursor: pointer;
+    transition: all 0.7s;
+    fill: aliceblue;
+}
+
+svg:hover 
+{
+   transform: scale(1.2);
+}
+
+
+
+/*Mobile Device*/
+@media screen and (max-width: 768px) {
+    .movie-details
+    {   
+        background: rgb(0,0,0);
+    }
+    .add-movie-rating
+    {   
+        width: 100%!important;
+    }
+}

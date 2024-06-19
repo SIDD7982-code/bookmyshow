@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <title>User Profile</title>
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .container {
+      margin-top: 50px;
+    }
+    .edit-mode .form-control {
+      background-color: #fff; /* Change background color to indicate edit mode */
+    }
+  </style>
+</head>
+<body>
+
+<header>
+        <!--Navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <div class="nav-left d-flex align-items-center">
+                    <a class="navbar-brand" href="/">
+                        <img src="/static/IMAGES/BMS_logo_new.png" alt="logo" />
+                    </a>
+                    <div class="search-box">
+                        <form class="d-flex" action="/search">
+                            <input type="text" name="name" placeholder="Enter Movie Name" class="form-control" />
+                            <button type="submit" class="btn btn-danger">&#10140;</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="nav-right float-end">
+                    <div class="buttons ">
+
+                        {% if request.user.is_authenticated %}
+                        <span class="text-light fw-5"><a href="/profile" class="text-decoration-none text-white">Welcome <b>{{request.user}}</b></a></span>
+                        <a class="btn btn-danger" href="/signout">Sign Out</a>
+
+
+                        {% else %}
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#signup">Sign Up</button>
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#signin">Sign In</button>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+        <!--End of Navbar-->
+        <div class="bg-secondary-subtle py-2">
+            <div class="container">
+                <div class="d-flex gap-4">
+                    {% for category in categories %}
+                        <div class="movie-category">
+                            <a href="/category/{{category.name}}"
+                                class="text-decoration-none link-dark active link-opacity-25-hover">
+                                {{category.name}}
+                            </a>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+
+      <form method="post">
+        {% csrf_token %}
+
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title">User Profile</h5>
+          <button type="submit" class="btn btn-success float-right mr-2" id="saveProfileBtn" >Save Profile</button>
+        </div>
+        <div class="card-body">
+
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" name="username" id="username" value="{{request.user}}" >
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" name="email" value="{{request.user.email}}" >
+            </div>
+
+          </form>
+
+          <hr>
+
+          <h5 class="mb-3">Booked Movie Tickets</h5>
+
+          <!-- Example Movie Tickets -->
+          {% for ticket in tickets %}
+          <div class="card my-3">
+            <div class="card-body">
+              <p>Movie: {{ticket.movie.title}}</p>
+              <p>Date: {{ticket.purchase_date}}</p>
+              <p>Seat:{% for x in ticket.seat.all %} {{x.seat_number}} {%endfor%}</p>
+              <a class="btn btn-primary mr-2" href="/viewpdf/{{ticket.id}}">View Ticket</a>
+              <a class="btn btn-success" href="/downlaodpdf/{{ticket.id}}">Download Ticket</a>
+            </div>
+          </div>
+          {%endfor%}
+
+          <!-- Add more movie tickets as needed -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  function toggleEditMode() {
+    const formInputs = document.querySelectorAll('.form-control');
+    formInputs.forEach(input => {
+      input.readOnly = !input.readOnly;
+    });
+
+    const cardBody = document.querySelector('.card-body');
+    cardBody.classList.toggle('edit-mode');
+
+    const saveProfileBtn = document.getElementById('saveProfileBtn');
+    saveProfileBtn.disabled = !saveProfileBtn.disabled;
+  }
+
+  function saveProfile() {
+    alert("Profile saved!");
+    const formInputs = document.querySelectorAll('.form-control');
+    formInputs.forEach(input => {
+      input.readOnly = !input.readOnly;
+    });
+    saveProfileBtn.disabled = !saveProfileBtn.disabled;
+
+
+  }
+
+  function viewTicket() {
+    alert("View Ticket clicked");
+  }
+
+  function downloadTicket() {
+    alert("Download Ticket clicked");
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Ticket Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .invoice-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .invoice-details {
+            margin-bottom: 20px;
+        }
+        .invoice-items {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .invoice-items th, .invoice-items td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .total-amount {
+            margin-top: 20px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="invoice-header">
+        <h1>Company Name</h1>
+        <p>Email: company@example.com</p>
+        <p>Address: 123 Main Street, Cityville</p>
+        <!-- Add other company information here -->
+    </div>
+
+    <div class="invoice-details">
+        <h2>Invoice Details</h2>
+        <p>Invoice Number: {{ticket.id}}</p>
+        <p>Invoice Date: {{ticket.purchase_date}}</p>
+        <!-- Add other relevant details here -->
+    </div>
+
+    <table class="invoice-items">
+        <thead>
+            <tr>
+                <th>Movie</th>
+                <th>Time</th>
+                <th>No. of Seats</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ticket.movie.title}}</td>
+                <td>{{ticket.movie_timing.show_time | time:"h:i A"}}</td>
+                <td>{% for x in ticket.seat.all %} {{ x.seat_number }} {%endfor%}</td>
+                <td>$100</td>
+            </tr>
+            <!-- Add more rows for additional movie bookings if needed -->
+        </tbody>
+    </table>
+
+    <div class="total-amount">
+        <p><strong>Total Amount: ${{ticket.price}}</strong></p>
+    </div>
+
+</body>
+</html>

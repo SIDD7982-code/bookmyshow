@@ -1,0 +1,22 @@
+.movie-category a.active
+{
+    font-weight: 600;
+}
+.carousel-indicators [data-bs-target]
+{
+    height:10px !important;
+    width: 10px !important;
+    border-radius: 50%;
+}
+li
+{
+    list-style: none !important;
+}
+
+/*Mobile Device*/
+@media screen and (max-width: 768px) {
+    .carousel-item img
+    {
+        height:200px !important;
+    }
+}

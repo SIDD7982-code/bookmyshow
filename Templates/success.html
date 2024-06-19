@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Movie Booking Success</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Custom styles for a more stylish look -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .success-icon {
+            color: #28a745;
+            font-size: 5rem;
+        }
+
+        .success-message {
+            color: #28a745;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .redirect-message {
+            color: #007bff;
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container text-center">
+    <div class="success-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+            <path d="M8 0a8 8 0 1 0 8 8A8 8 0 0 0 8 0zM7 12a1 1 0 0 1-1-1V6a1 1 0 0 1 2 0v5a1 1 0 0 1-1 1zM8 5a1 1 0 0 1 1 1h.001A1 1 0 0 1 9 7H8a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/>
+        </svg>
+    </div>
+
+    <div class="success-message mt-3">
+        Movie Booking Successful!
+    </div>
+
+    <div class="redirect-message" id="redirectMessage">
+        Redirecting to home page in <span id="countdown">10</span> seconds...
+    </div>
+</div>
+
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // Redirect after countdown
+    var countdown = 10;  // Initial countdown value
+    var countdownElement = document.getElementById('countdown');
+
+    function updateCountdown() {
+        countdownElement.textContent = countdown;
+        countdown--;
+
+        if (countdown < 0) {
+            window.location.href = 'http://127.0.0.1:8000/';  // Replace 'home.html' with the actual home page URL
+        } else {
+            setTimeout(updateCountdown, 1000);  // Update countdown every 1 second
+        }
+    }
+
+    // Start the countdown
+    setTimeout(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
